@@ -1,0 +1,59 @@
+@charset "ISO-8859-1";
+
+table{
+	
+	empty-cells: hide;
+	table-layout: fixed;
+	
+}
+
+td{
+	text-align: center;
+}
+
+.t1{
+	border-collapse: collapse;
+	border-spacing: 100px;
+	border-width: 5px;
+	border-style: double;
+}
+
+.td1{
+	
+	vertical-align: middle;
+	text-align: center;
+	/* border-width: 5px;
+	border-style: double; */
+}
+
+p{
+	text-align: center;
+}
+
+#id1 {
+	background-color : rgb(192, 192, 192);
+	
+}
+
+.bouton {
+	background: white;
+	color: black;
+	border: 2px solid green;
+	padding: 15px 32px;
+	font-size: 16px;
+	border-radius: 8px;
+	transition-duration: 0.2s;
+	box-shadow: 0 9px #999;
+}
+
+.bouton:hover {
+	background: green;
+	color: white;
+}
+
+.bouton:active {
+	background: green;
+	box-shadow: 0 5px #666;
+	transform: translateY(4px);
+}
+ 
