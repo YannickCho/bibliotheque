@@ -68,6 +68,7 @@ public class BiblioController {
 	@Autowired
 	private ReservationRepository reservationRepository;
 
+	//Accès à la page d'index
 	@GetMapping(value = {"/bibliotheque/index", "/bibliotheque"})
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView();
@@ -75,6 +76,7 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Connexion de l'utilisateur
 	@PostMapping(value = "/bibliotheque/connexion")
 	public ModelAndView connexion(@RequestParam(value = "login") String login, @RequestParam(value = "pwd") String pwd, HttpSession httpSession, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
@@ -89,7 +91,7 @@ public class BiblioController {
 					cookie.setMaxAge(60*60*24);
 					response.addCookie(cookie);
 					httpSession.setAttribute("utilisateur", utilisateur);
-					if (utilisateur instanceof Bibliothecaire)
+					if (utilisateur instanceof Bibliothecaire) //Renvoi vers une page suivant le type de l'utilisateur
 						path = "bibliothecaire";
 					else 
 						path = "emprunteur";
@@ -107,16 +109,19 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Accès à la page du bibliothécaire
 	@GetMapping(value = "/bibliotheque/bibliothecaire")
 	public String retourAccueilBiblio() {
 		return "bibliothecaire";
 	}
 	
+	//Accès à la page de l'emprunteur
 	@GetMapping(value = "/bibliotheque/emprunteur")
 	public String retourAccueilEmpr() {
 		return "emprunteur";
 	}
 	
+	//Déconnexion de l'utilisateur
 	@GetMapping(value = "/bibliotheque/deconnect")
 	public ModelAndView deconnexion(HttpSession httpSession, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
@@ -133,21 +138,25 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Accès à la page de gestion des utilisateurs
 	@GetMapping(value = "/bibliotheque/gestionUtilisateur")
 	public String gestionUtilisateur() {
 		return "gestionUtilisateur";		
 	}
 	
+	//Accès à la page de gestion des publications
 	@GetMapping(value = "/bibliotheque/gestionPublication")
 	public String gestionPublication() {
 		return "gestionPublication";		
 	}
 	
+	//Accès à la page d'ajout d'un utilisateur
 	@GetMapping(value = "/bibliotheque/ajoutUtilisateur")
 	public String ajoutUtilisateur() {
 		return "ajoutUtilisateur";		
 	}
 	
+	//Ajout d'un utilisateur
 	@PostMapping(value = "/bibliotheque/ajoutUtilisateur")
 	public String ajoutUtilisateur(@RequestParam(value = "nom") String nom, @RequestParam(value = "prenom") String prenom, 
 	@RequestParam(value = "mail") String mail, @RequestParam(value = "login") String login, @RequestParam(value = "pwd") String pwd, 
@@ -163,7 +172,7 @@ public class BiblioController {
 	}
 	
 	
-		
+	//Accès à la liste des utilisateurs
 	@GetMapping(value = "/bibliotheque/listeUtilisateur")
 	public ModelAndView listeUtilisateur() {
 		ModelAndView mv = new ModelAndView();
@@ -173,6 +182,7 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Accès à la page de mise à jour d'un utilisateur
 	@GetMapping(value = "/bibliotheque/majUtilisateur")
 	public ModelAndView majUtilisateur(@RequestParam("id") int id) {
 		ModelAndView mv = new ModelAndView();
@@ -182,6 +192,7 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Mise à jour d'un utilisateur
 	@PostMapping(value = "/bibliotheque/majUtilisateur")
 	public ModelAndView majUtilisateur(@RequestParam(value = "nom") String nom, @RequestParam(value = "prenom") String prenom, 
 			@RequestParam("id") int id, @RequestParam(value = "mail") String mail, @RequestParam(value = "pwd") String pwd) {
@@ -198,6 +209,7 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Suppression d'un utilisateur
 	@GetMapping(value = "/bibliotheque/suppUtilisateur")
 	public ModelAndView suppUtilisateur(@RequestParam("id") int id) {
 		ModelAndView mv = new ModelAndView();
@@ -209,11 +221,13 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Accès à la page d'ajout des publications
 	@GetMapping(value = "/bibliotheque/ajoutPublication")
 	public String ajoutPublication() {
 		return "ajoutPublication";		
 	}
 	
+	//Ajout d'une publication
 	@PostMapping(value = "/bibliotheque/ajoutPublication")
 	public ModelAndView ajoutPublication(@RequestParam("titre") String titre, @RequestParam("nbPages") int nbPages, 
 			@RequestParam("type") String type, @RequestParam("quantite") int quantite) {
@@ -240,6 +254,7 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Ajout d'une publication (2e page)
 	@PostMapping(value = "/bibliotheque/ajoutPublication2")
 	public String ajoutPublication2(@RequestParam("id") int id, @RequestParam(value = "auteur", required = false) String auteur, 
 			@RequestParam("annee") int annee, @RequestParam(value = "mois", required = false) String mois, 
@@ -262,6 +277,7 @@ public class BiblioController {
 		return "gestionPublication";
 	}
 	
+	//Accès à la liste des publications
 	@GetMapping(value = "/bibliotheque/listePublication")
 	public ModelAndView listePublication() {
 		ModelAndView mv = new ModelAndView();
@@ -271,6 +287,7 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Accès à la page de mise à jour d'une publication
 	@GetMapping(value = "/bibliotheque/majPublication")
 	public ModelAndView majPublication(@RequestParam("id") int id) {
 		ModelAndView mv = new ModelAndView();
@@ -280,6 +297,7 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Mise à jour d'une publication
 	@PostMapping(value = "/bibliotheque/majPublication")
 	public ModelAndView majPublication(@RequestParam("titre") String titre, @RequestParam(value = "auteur", required = false) String auteur, 
 			@RequestParam("id") int id, @RequestParam("quantite") int quantite, @RequestParam("datePubli") String date) {
@@ -298,6 +316,7 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Suppression d'une publication
 	@GetMapping(value = "/bibliotheque/suppPublication")
 	public ModelAndView suppPublication(@RequestParam("id") int id) {
 		ModelAndView mv = new ModelAndView();
@@ -309,11 +328,13 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Accès à la page de gestion des emprunts
 	@GetMapping(value = "/bibliotheque/gestionEmprunt")
 	public String gestionEmprunt() {
 		return "gestionEmprunt";
 	}
 	
+	//Accès à la page d'ajout d'un emprunt
 	@GetMapping(value = "/bibliotheque/ajoutEmprunt")
 	public ModelAndView ajoutEmprunt() {
 		ModelAndView mv = new ModelAndView();
@@ -325,6 +346,7 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Ajout d'un emprunt
 	@PostMapping(value = "/bibliotheque/ajoutEmprunt")
 	public String ajoutEmprunt(@RequestParam("idEmprunteur") int idEmprunteur, @RequestParam("idPublication") int idPublication) {
 		Emprunteur emprunteur = emprunteurRepository.getById(idEmprunteur);
@@ -336,6 +358,7 @@ public class BiblioController {
 		return "gestionEmprunt";
 	}
 	
+	//Accès à la page de retour des emprunts
 	@GetMapping(value = "/bibliotheque/retour")
 	public ModelAndView retour() {
 		ModelAndView mv = new ModelAndView();
@@ -346,6 +369,7 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Retour d'un emprunt
 	@PostMapping(value = "/bibliotheque/retour")
 	public ModelAndView retour(@RequestParam("id") int id) {
 		ModelAndView mv = new ModelAndView();
@@ -362,6 +386,7 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Accès à la page de recherche des publications
 	@GetMapping(value = "/bibliotheque/recherchePublication")
 	public ModelAndView recherchePublication() {
 		ModelAndView mv = new ModelAndView();
@@ -371,6 +396,7 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Recherche des publications
 	@PostMapping(value = "/bibliotheque/recherchePublication")
 	public ModelAndView recherchePublication(@RequestParam("type") String type, @RequestParam(value = "titre", required=false) String titre, 
 			@RequestParam(value = "auteur", required=false) String auteur) {
@@ -389,6 +415,7 @@ public class BiblioController {
 		return mv;
 	}
 	
+	//Réservation d'une publication
 	@GetMapping(value = "bibliotheque/reservation")
 	public ModelAndView reservation(@RequestParam("id") int id, HttpSession httpSession) {
 		ModelAndView mv = new ModelAndView();
